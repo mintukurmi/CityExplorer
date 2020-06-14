@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Explorer</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body> 
+
+    <div class="dark-overlay"></div>
+
+    <div class="main">
+        <div class="container my-2">
+            <h2 class="display-3 text-center py-5 text-white">Explore a city. Today!</h2>
+            <div class="row my-4">
+
+                    <div class="col-md-4">
+                        <form method="POST" onsubmit="event.preventDefault(); ">
+                        <!-- countries -->
+                        <div id="countires">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Country</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01">
+                                    <option selected disabled>Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- / countries -->
+                    </div>
+
+                    <div class="col-md-4">
+                        <!-- states -->
+                        <div id="states">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">State</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01">
+                                    <option selected disabled>Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- / states -->
+                    </div>
+
+                    <div class="col-md-4">
+                        <!-- cities -->
+                        <div id="cities">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">City</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01">
+                                    <option selected disabled>Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- / cities -->
+                    </div>
+
+                    <div class="my-5 text-center" style="width: 100%;">
+                        <button id="submit-btn"  type="submit" class="btn btn-primary mx-auto">Explore Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- mustache templates -->
+    <script id="countries-template" type="text/html">
+        <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Country</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01" onchange="loadStates(this.value)" required>
+                    <option selected disabled>Please select Country</option>
+                    {{#countries}}
+                        <option value="{{country_name}}">{{country_name}}</option>
+                    {{/countries}}
+                </select>
+            </div>
+    </script>
+
+     <script id="states-template" type="text/html">
+        <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect02">State</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect02" onchange="loadCities(this.value)" required>
+                    <option selected disabled>Please select State</option>
+                    {{#states}}
+                        <option value="{{state_name}}">{{state_name}}</option>
+                    {{/states}}
+                </select>
+            </div>
+        </script>
+
+        <script id="cities-template" type="text/html">
+            <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect03">City</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect03" required>
+                        <option selected disabled>Please select City</option>
+                        {{#cities}}
+                            <option value="{{city_name}}">{{city_name}}</option>
+                        {{/cities}}
+                    </select>
+                </div>
+        </script>
+
+    <!-- / mustache templates -->
+
+    <!-- Mustache -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    
+    <!-- custom script-->
+    <script src="./script.js"></script>
+
+    <script>
+        // init countries function on page load
+        loadCountries();
+    </script>
+
+</body>
+</html>
